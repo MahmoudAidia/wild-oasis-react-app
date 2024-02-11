@@ -1,9 +1,11 @@
+import { Fragment } from "react";
+
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import CabinTable from "../features/cabins/CabinTable";
-import { Fragment } from "react";
 
 function Cabins() {
+  // In our layout we always need the pages to be placed without a parent components in order to make the styles work, so that's why we use the Fragment.
   return (
     <Fragment>
       <Row type="horizontal">
