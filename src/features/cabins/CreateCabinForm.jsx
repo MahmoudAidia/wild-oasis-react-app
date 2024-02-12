@@ -6,6 +6,9 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
 
 const FormRow = styled.div`
   display: grid;
@@ -44,13 +47,42 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-  const { register, handleSubmit } = useForm();
+  // React hook forms
+  const { register, handleSubmit, reset } = useForm();
 
+  // Get access to the query client to invalidate any cache
+  const queryClient = useQueryClient();
+
+  // Posting the form data to Supabase
+  const { mutate, isLoading: isCreating } = useMutation({
+    mutationFn: (newCabin) => {
+      // Post the data using createCabin from the apiCabin services
+      createCabin(newCabin);
+    },
+    onSuccess: () => {
+      // InValidate the cache to make react query refetches the new data from Supabase
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+
+      // Notify the user that the process was successful
+      toast.success("New cabin successfully created.");
+
+      // Reset all the input fields
+      reset();
+    },
+
+    onError: (err) => {
+      // Notify the user that the process failed
+      toast.error(err.message);
+    },
+  });
+
+  // Function to be excuted whenever the form is submitted
   function onSubmit(data) {
-    console.log("Submitted");
-    console.log(data);
+    // Use the mutate function to post the data
+    mutate(data);
   }
   return (
+    // We use the handleSubmit function from react hook forms to actually call the our created onSubmit function.
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
@@ -97,7 +129,7 @@ function CreateCabinForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Edit cabin</Button>
+        <Button disabled={isCreating}>Edit cabin</Button>
       </FormRow>
     </Form>
   );
