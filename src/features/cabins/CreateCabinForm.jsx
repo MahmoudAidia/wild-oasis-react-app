@@ -83,7 +83,8 @@ function CreateCabinForm() {
   // Function to be excuted whenever the form is submitted
   function onSubmit(data) {
     // Use the mutate function to post the data
-    mutate(data);
+    console.log(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   // Function to handle form validations errors
@@ -160,17 +161,17 @@ function CreateCabinForm() {
           {...register("description", {
             required: "This field is required",
           })}
+          disabled={isCreating}
         />
-        disabled={isCreating}
       </FormRow>
 
-      <FormRow2>
-        <Label htmlFor="image">Cabin photo</Label>
-        <FileInput id="image" accept="image/*" />
-      </FormRow2>
-
       <FormRow label="Cabin photo">
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          accept="image/*"
+          type="file"
+          {...register("image", { required: "This field is required" })}
+        />
       </FormRow>
 
       <FormRow>
