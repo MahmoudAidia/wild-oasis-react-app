@@ -1,16 +1,18 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { createEditCabin } from "../../services/apiCabins";
 import FormRow from "../../ui/FormRow";
+import { useCreateCabin } from "./useCreateCabin";
+import useEditCabin from "./useEditCabin";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
+  const { createCabin, isCreating } = useCreateCabin();
+  const { editCabin, isEditing } = useEditCabin();
+  const isWorking = isCreating || isEditing;
+
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
@@ -22,55 +24,29 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   // Get the errors from the form inputs, access each input error by its "name" in the register function
   const { errors } = formState;
 
-  // Get access to the query client to invalidate any cache
-  const queryClient = useQueryClient();
-
-  // Posting the form data to Supabase
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: (newCabin) => {
-      // Post the data using createCabin from the apiCabin services
-      createEditCabin(newCabin);
-    },
-    onSuccess: () => {
-      // InValidate the cache to make react query refetches the new data from Supabase
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-
-      // Notify the user that the process was successful
-      toast.success("New cabin successfully created.");
-
-      // Reset all the input fields
-      reset();
-    },
-
-    onError: (err) => {
-      // Notify the user that the process failed
-      toast.error(err.message);
-    },
-  });
-
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    mutationFn: ({ newCabinData, id }) => {
-      createEditCabin(newCabinData, id);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      toast.success("Cabin successfully edited.");
-      reset();
-    },
-
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
-
-  const isWorking = isCreating || isEditing;
   // Function to be excuted whenever the form is submitted
   function onSubmit(data) {
     // Use the mutattion functions to post new Data or edit existing Data
     const image = typeof data.image === "string" ? data.image : data.image[0];
     if (isEditSession) {
-      editCabin({ newCabinData: { ...data, image: image }, id: editId });
-    } else createCabin({ ...data, image: data.image[0] });
+      editCabin(
+        { newCabinData: { ...data, image: image }, id: editId },
+        {
+          onSuccess: (data) => {
+            console.log(data);
+            reset();
+          },
+        }
+      );
+    } else
+      createCabin(
+        { ...data, image: data.image[0] },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        }
+      );
   }
 
   // Function to handle form validations errors
