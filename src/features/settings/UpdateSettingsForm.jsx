@@ -1,13 +1,14 @@
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import { useForm } from "react-hook-form";
 import useSettings from "./useSettings";
 import Spinner from "../../ui/Spinner";
+import useUpdateSetting from "./useUpdateSetting";
 
 function UpdateSettingsForm() {
   const { settings, isLoading } = useSettings();
-  const { register, handleSubmit } = useForm();
+
+  const { isUpdating, updateSetting } = useUpdateSetting();
 
   if (isLoading) return <Spinner />;
 
@@ -18,47 +19,49 @@ function UpdateSettingsForm() {
     breakfastPrice,
   } = settings;
 
-  function formSubmit() {}
+  function handleUpdate(e, field) {
+    const { value } = e.target;
+    console.log(value);
+    if (!value) return;
+    updateSetting({ [field]: value });
+  }
+
   return (
-    <Form onSubmit={handleSubmit(formSubmit)}>
+    <Form>
       <FormRow label="Minimum nights/booking">
         <Input
           type="number"
           id="min-nights"
-          {...register("minBookingLength,", {
-            required: "This input is required",
-          })}
           defaultValue={minBookingLength}
+          onBlur={(e) => handleUpdate(e, "minBookingLength")}
+          disabled={isLoading}
         />
       </FormRow>
       <FormRow label="Maximum nights/booking">
         <Input
           type="number"
           id="max-nights"
-          {...register("maxBookingLength,", {
-            required: "This input is required",
-          })}
           defaultValue={maxBookingLength}
+          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
+          disabled={isLoading}
         />
       </FormRow>
       <FormRow label="Maximum guests/booking">
         <Input
           type="number"
           id="max-guests"
-          {...register("maxGuestsPerBooking,", {
-            required: "This input is required",
-          })}
           defaultValue={maxGuestsPerBooking}
+          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
+          disabled={isLoading}
         />
       </FormRow>
       <FormRow label="Breakfast price">
         <Input
           type="number"
           id="breakfast-price"
-          {...register("breakfastPrice", {
-            required: "This field is required",
-          })}
           defaultValue={breakfastPrice}
+          onBlur={(e) => handleUpdate(e, "breakfastPrice")}
+          disabled={isLoading}
         />
       </FormRow>
     </Form>
