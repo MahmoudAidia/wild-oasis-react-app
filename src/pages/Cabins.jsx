@@ -16,7 +16,6 @@ function Cabins() {
       </Row>
       <Row>
         <CabinTable />
-
         <AddCabin />
       </Row>
     </Fragment>
