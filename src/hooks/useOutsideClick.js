@@ -9,6 +9,7 @@ export function useOutsideClick(handler, listenCapturing) {
         handler();
       }
     }
+
     document.addEventListener("click", handleClick, listenCapturing);
 
     return () => {
