@@ -34,22 +34,28 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
-function Filter() {
+
+function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
+
   function handleClick(value) {
-    searchParams.set("discount", value);
+    searchParams.set(filterField, value);
     setSearchParams(searchParams);
   }
 
+  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+
   return (
     <StyledFilter>
-      <FilterButton onClick={() => handleClick("all")}>All</FilterButton>
-      <FilterButton onClick={() => handleClick("no-discount")}>
-        No Discount
-      </FilterButton>
-      <FilterButton onClick={() => handleClick("with-discount")}>
-        With Discount
-      </FilterButton>
+      {options.map((option) => (
+        <FilterButton
+          onClick={() => handleClick(option.value)}
+          key={option.label}
+          active={option.value === currentFilter}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
     </StyledFilter>
   );
 }
