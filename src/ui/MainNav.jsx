@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi2";
 
 import styled from "styled-components";
+import Uploader from "../data/Uploader";
 
 const NavList = styled.ul`
   display: flex;
@@ -92,6 +93,7 @@ function MainNav() {
             <span>Settings</span>
           </StyledNavLink>
         </li>
+        <li>{<Uploader />}</li>
       </NavList>
     </nav>
   );
