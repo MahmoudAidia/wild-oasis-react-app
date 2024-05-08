@@ -1,12 +1,19 @@
+import { Fragment } from "react";
+import DashboardLayout from "../features/dashboard/DashboardLayout";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
+import DashboardFilter from "../features/dashboard/DashboardFilter";
 
 function Dashboard() {
   return (
-    <Row type="horizontal">
-      <Heading as="h1">Dashboard</Heading>
-      <p>TEST</p>
-    </Row>
+    <Fragment>
+      <Row type="horizontal">
+        <Heading as="h1">Dashboard</Heading>
+        <p>Test</p>
+        <DashboardFilter />
+      </Row>
+      <DashboardLayout />
+    </Fragment>
   );
 }
 
