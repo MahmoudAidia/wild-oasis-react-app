@@ -9,7 +9,6 @@ function Dashboard() {
     <Fragment>
       <Row type="horizontal">
         <Heading as="h1">Dashboard</Heading>
-        <p>Test</p>
         <DashboardFilter />
       </Row>
       <DashboardLayout />
