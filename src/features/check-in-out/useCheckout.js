@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export function useCheckout() {
   const queryClient = useQueryClient();
-  const { mutate: checkout, isLoading: isCheckingOUt } = useMutation({
+  const { mutate: checkout, isLoading: isCheckingOut } = useMutation({
     mutationFn: (bookingId) =>
       updateBooking(bookingId, {
         status: "checked-out",
@@ -19,5 +19,5 @@ export function useCheckout() {
     onError: () => toast.error("There was an error while checking out."),
   });
 
-  return { checkout, isCheckingOUt };
+  return { checkout, isCheckingOut };
 }
