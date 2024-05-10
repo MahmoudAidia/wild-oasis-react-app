@@ -93,7 +93,10 @@ function MainNav() {
             <span>Settings</span>
           </StyledNavLink>
         </li>
-        <li>{<Uploader />}</li>
+
+        {
+          // <li>{<Uploader />}</li>
+        }
       </NavList>
     </nav>
   );
