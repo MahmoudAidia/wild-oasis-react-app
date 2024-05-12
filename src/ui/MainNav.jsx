@@ -94,9 +94,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
 
-        {
-          // <li>{<Uploader />}</li>
-        }
+        {<li>{<Uploader />}</li>}
       </NavList>
     </nav>
   );
