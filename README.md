@@ -1,4 +1,5 @@
 ## Live Demo
+- NOTE: The application is not responsive ( as its users are company employees ) so you must open it with the desktop.
 - https://wild-oasis-react-app-three.vercel.app/dashboard
 
 ## About the application
