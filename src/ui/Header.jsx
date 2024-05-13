@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import HeaderMenu from "./HeaderMenu";
 import UserAvatar from "../features/authentication/UserAvatar";
+import { motion } from "framer-motion";
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
@@ -15,8 +16,21 @@ const StyledHeader = styled.header`
 function Header() {
   return (
     <StyledHeader>
-      <UserAvatar />
-      <HeaderMenu />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 1 }}
+      >
+        <UserAvatar />
+      </motion.div>
+
+      <motion.div
+        initial={{ x: 400 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.5, delay: 1 }}
+      >
+        <HeaderMenu />
+      </motion.div>
     </StyledHeader>
   );
 }

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 import Uploader from "../data/Uploader";
+import { motion } from "framer-motion";
 
 const StyledAside = styled.aside`
   background-color: var(--color-grey-0);
@@ -16,7 +17,13 @@ const StyledAside = styled.aside`
 function Sidebar() {
   return (
     <StyledAside>
-      <Logo />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 3 }}
+        transition={{ duration: 2, delay: 0.5 }}
+      >
+        <Logo />
+      </motion.span>
       <MainNav />
     </StyledAside>
   );

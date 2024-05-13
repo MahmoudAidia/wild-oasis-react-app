@@ -17,9 +17,9 @@ function Login() {
   return (
     <LoginLayout>
       <motion.div
-        initial={{ x: "-800px" }}
-        animate={{ x: "0px" }}
-        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 1 }}
       >
         <Logo />
       </motion.div>
@@ -31,9 +31,9 @@ function Login() {
         <Heading as="h4">Login to your account</Heading>
       </motion.div>{" "}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
+        initial={{ y: "500px" }}
+        animate={{ y: "0px" }}
+        transition={{ duration: 0.3 }}
       >
         <LoginForm />
       </motion.div>
