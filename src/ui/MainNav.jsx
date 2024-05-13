@@ -58,48 +58,66 @@ const StyledNavLink = styled(NavLink)`
 
 function MainNav() {
   return (
-    <motion.div initial={{ x: "-200px" }} animate={{ x: "0px" }}>
-      <nav>
-        <NavList>
-          <li>
-            <StyledNavLink to="/dashboard">
-              <HiOutlineHome />
-              <span>Home</span>
-            </StyledNavLink>
-          </li>
+    <nav>
+      <NavList>
+        <motion.li
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <StyledNavLink to="/dashboard">
+            <HiOutlineHome />
+            <span>Home</span>
+          </StyledNavLink>
+        </motion.li>
 
-          <li>
-            <StyledNavLink to="/bookings ">
-              <HiOutlineCalendarDays />
-              <span>Bookings</span>
-            </StyledNavLink>
-          </li>
+        <motion.li
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <StyledNavLink to="/bookings ">
+            <HiOutlineCalendarDays />
+            <span>Bookings</span>
+          </StyledNavLink>
+        </motion.li>
 
-          <li>
-            <StyledNavLink to="/cabins ">
-              <HiOutlineHomeModern />
-              <span>Cabins</span>
-            </StyledNavLink>
-          </li>
+        <motion.li
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <StyledNavLink to="/cabins ">
+            <HiOutlineHomeModern />
+            <span>Cabins</span>
+          </StyledNavLink>
+        </motion.li>
 
-          <li>
-            <StyledNavLink to="/users ">
-              <HiOutlineUsers />
-              <span>Users</span>
-            </StyledNavLink>
-          </li>
+        <motion.li
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <StyledNavLink to="/users ">
+            <HiOutlineUsers />
+            <span>Users</span>
+          </StyledNavLink>
+        </motion.li>
 
-          <li>
-            <StyledNavLink to="/settings ">
-              <HiOutlineCog6Tooth />
-              <span>Settings</span>
-            </StyledNavLink>
-          </li>
+        <motion.li
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <StyledNavLink to="/settings ">
+            <HiOutlineCog6Tooth />
+            <span>Settings</span>
+          </StyledNavLink>
+        </motion.li>
 
-          {<li>{<Uploader />}</li>}
-        </NavList>
-      </nav>
-    </motion.div>
+        {<li>{<Uploader />}</li>}
+      </NavList>
+    </nav>
   );
 }
 

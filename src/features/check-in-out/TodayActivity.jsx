@@ -5,6 +5,7 @@ import Row from "../../ui/Row";
 import { useTodayActivity } from "./useTodayActivity";
 import Spinner from "../../ui/Spinner";
 import TodayItem from "./TodayItem";
+import { motion } from "framer-motion";
 
 const StyledToday = styled.div`
   /* Box */
@@ -50,7 +51,14 @@ function TodayActivity() {
         activities.length > 0 ? (
           <TodayList>
             {activities.map((activity) => (
-              <TodayItem activity={activity} key={activity.id} />
+              <motion.div
+                key={activity.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                <TodayItem activity={activity} key={activity.id} />
+              </motion.div>
             ))}
           </TodayList>
         ) : (
