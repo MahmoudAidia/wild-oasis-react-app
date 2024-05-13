@@ -25,8 +25,8 @@ function Header() {
       </motion.div>
 
       <motion.div
-        initial={{ x: 400 }}
-        animate={{ x: 0 }}
+        initial={{ y: -400 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 1 }}
       >
         <HeaderMenu />
